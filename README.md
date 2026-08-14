@@ -6,7 +6,7 @@ find correlations between vocal parameters and Parkinson's Disease, and trains s
 classifiers to distinguish healthy subjects from those with PD — a low-cost, non-invasive
 route toward **early screening**.
 
-> 📄 **This work has been peer-reviewed and published in *Neurology*.**
+> 📄 **This work has been peer-reviewed and published for presentation in *Neurology*.**
 > See the [Publication](#-publication) section below.
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
@@ -37,61 +37,6 @@ Learning Repository.
 - **Attributes:** 22 biomedical voice measures per recording + a target label
 - **Target:** `status` — `1` = Parkinson's Disease, `0` = healthy
 
-### Feature groups
-
-| Group | Original columns | What it captures |
-|-------|------------------|------------------|
-| Fundamental frequency | `MDVP:Fo(Hz)`, `MDVP:Fhi(Hz)`, `MDVP:Flo(Hz)` | Average, maximum and minimum vocal pitch |
-| Jitter (frequency variation) | `MDVP:Jitter(%)`, `MDVP:Jitter(Abs)`, `MDVP:RAP`, `MDVP:PPQ`, `Jitter:DDP` | Cycle-to-cycle variation in pitch |
-| Shimmer (amplitude variation) | `MDVP:Shimmer`, `MDVP:Shimmer(dB)`, `Shimmer:APQ3`, `Shimmer:APQ5`, `MDVP:APQ`, `Shimmer:DDA` | Cycle-to-cycle variation in loudness |
-| Noise ratios | `NHR`, `HNR` | Ratio of noise to tonal components |
-| Nonlinear / complexity | `RPDE`, `D2`, `DFA`, `spread1`, `spread2`, `PPE` | Nonlinear dynamical and signal-complexity measures |
-
-> Column names are renamed to more readable labels (e.g. `av_voc_hz`, `max_voc_hz`,
-> `frq_percent`, `amp`, …) inside the notebooks.
-
----
-
-## 🔬 Methodology
-
-1. **Data loading & cleaning** — load the dataset, verify there are no null values, drop the
-   non-predictive `name` identifier, and rename columns for readability.
-2. **Exploratory data analysis** — inspect feature ranges, distributions, and a correlation
-   heatmap; compare vocal measures between PD and healthy groups (e.g. HNR vs. NHR).
-3. **Train/test split** — 70% training / 30% testing.
-4. **Feature scaling** — `StandardScaler` applied before training the distance- and
-   margin-based models.
-5. **Model training & evaluation** — train five classifiers and compare them using accuracy,
-   precision, recall, F1-score and confusion matrices (with cross-validation).
-
----
-
-## 🤖 Models & Results
-
-Five supervised classifiers were trained and evaluated on the held-out test set:
-
-| Model | Test Accuracy |
-|-------|:-------------:|
-| Logistic Regression | 91.5% |
-| Decision Tree Classifier | 91.5% |
-| K-Nearest Neighbors (k = 1) | 93.2% |
-| Support Vector Classifier (SVC) | 93.2% |
-| **Random Forest Classifier** ⭐ | **96.6%** |
-
-The **Random Forest Classifier** performed best, reaching **~96.6% test accuracy** with
-balanced precision and recall across both classes — making it the strongest candidate for
-voice-based PD screening in this study.
-
----
-
-## 📁 Repository Structure
-
-```
-.
-├── dsProject.ipynb   # Data exploration & analysis
-├── ML.ipynb          # Model training & evaluation
-└── README.md
-```
 
 ### Notebooks
 
@@ -117,24 +62,15 @@ evaluates five supervised classifiers:
 5. **Random Forest Classifier** — ensemble of trees (best performer)
 
 Each model is scored with accuracy, precision, recall, F1-score and a confusion matrix
-(using cross-validation), and the results are compared to select the best-performing model.
+(using cross-validation) and the results are compared to select the best-performing model.
 
 ---
 
-## 🚀 Getting Started
 
-### Requirements
+## Requirements
 
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn jupyter
-```
-
-### Run
-
-```bash
-git clone https://github.com/anika-nur/parkinson-s-detection-with-machine-learning.git
-cd parkinson-s-detection-with-machine-learning
-jupyter notebook
 ```
 
 Open `dsProject.ipynb` for the exploratory analysis, or `ML.ipynb` to reproduce the model
@@ -179,8 +115,3 @@ If you use this work, please cite the published article.
 > detection. *BioMedical Engineering OnLine*, 6, 23.
 
 ---
-
-## 📝 License
-
-This project is available for academic and research use. Please cite the publication and
-dataset above if you build on this work.
