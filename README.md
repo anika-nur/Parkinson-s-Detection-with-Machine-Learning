@@ -88,10 +88,36 @@ voice-based PD screening in this study.
 
 ```
 .
-├── ML.ipynb          # Model training & evaluation (Logistic Regression, KNN, SVC, Decision Tree, Random Forest)
-├── dsProject.ipynb   # Exploratory data analysis & feature exploration
+├── dsProject.ipynb   # Data exploration & analysis
+├── ML.ipynb          # Model training & evaluation
 └── README.md
 ```
+
+### Notebooks
+
+**`dsProject.ipynb` — Data Science / Exploratory Data Analysis**
+The analysis notebook. It loads the raw dataset, checks for missing and duplicate values,
+drops the non-predictive `name` column, and renames the raw MDVP columns to readable labels.
+It then explores the data: summary statistics and feature ranges, a correlation heatmap of
+the vocal measures, distribution plots, and comparisons between the PD group (`status = 1`)
+and the healthy group (`status = 0`) — for example, examining the range of average vocal
+frequency in PD-detected subjects and whether the noise ratios `HNR` and `NHR` are
+proportionally related. This notebook establishes *what the voice features look like* and
+which ones separate the two groups.
+
+**`ML.ipynb` — Machine Learning Modeling**
+The modeling notebook. Building on the same cleaned data, it splits the set 70/30 into
+training and test data, applies `StandardScaler` feature scaling, and then trains and
+evaluates five supervised classifiers:
+
+1. **Logistic Regression** — baseline linear classifier
+2. **K-Nearest Neighbors** — with an error-rate-vs-K sweep to choose *k*
+3. **Support Vector Classifier (SVC)** — with the RBF kernel
+4. **Decision Tree Classifier** — tuned depth and leaf constraints
+5. **Random Forest Classifier** — ensemble of trees (best performer)
+
+Each model is scored with accuracy, precision, recall, F1-score and a confusion matrix
+(using cross-validation), and the results are compared to select the best-performing model.
 
 ---
 
